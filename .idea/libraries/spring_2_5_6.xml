@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="spring-2.5.6">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib" />
+      <root url="file:///usr/local/tomcat/tomcat/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+    <jarDirectory url="file:///usr/local/tomcat/tomcat/lib" recursive="false" />
+  </library>
+</component>

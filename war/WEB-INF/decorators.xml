@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators>
+    <decorator name="simple" page="/WEB-INF/decorators/base_layout.jsp">
+        <pattern>*</pattern>
+    </decorator>
+</decorators>

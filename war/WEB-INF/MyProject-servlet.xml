@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+
+    <!-- the application context definition for the springapp DispatcherServlet -->
+
+    <bean name="/hello.htm" class="MyProject.web.controller.HelloController"/>
+    <bean name="/index.htm" class="MyProject.web.controller.HelloController"/>
+    <bean name="/index.html" class="MyProject.web.controller.HelloController"/>
+    <bean name="/construction.htm" class="MyProject.web.controller.ActionController"/>
+    <!--<bean name="/signUpForm.htm" class="MyProject.web.controller.SignUpController"/>-->
+
+    <bean id="signUpService" class="MyProject.service.SignUpServiceImpl" >
+        <property name="userDao" ref="userDao"/>
+       </bean>
+    <bean id="userDao" class="MyProject.dao.UserDaoImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean name="/signIn.htm" class="MyProject.web.controller.SignInController" p:signInService-ref="signInService" p:formView="signInForm" p:successView="signInSuccess" p:validator-ref="signInValidator"/>
+    <bean name="/signUpForm.htm" class="MyProject.web.controller.SignUpController" p:signUpService-ref="signUpService" p:formView="signUpForm" p:successView="signUpSuccess" />
+    <bean id="signInValidator" class="MyProject.web.validator.SignInValidator"></bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
+    </bean>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>-->
+        <property name="prefix" value="/WEB-INF/jsp/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+    <bean id="signInService" class="MyProject.service.SignInServiceImpl" />
+    
+</beans>
